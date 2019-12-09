@@ -1,6 +1,7 @@
 package com.develop.childtracking.ui.ParentLogin;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
@@ -43,6 +44,9 @@ public class ParentLoginViewModel extends ViewModel {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            String userId = firebaseAuth.getUid();
+                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child("Parents").child(userId);
+                            reference.setValue(true);
                             mutableLiveData.setValue(context.getResources().getString(R.string.success_tag));
                         } else {
                             mutableLiveData.setValue(context.getResources().getString(R.string.failed_tag));
@@ -60,6 +64,7 @@ public class ParentLoginViewModel extends ViewModel {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     if (dataSnapshot1 != null) {
+                        Log.e("userKey", dataSnapshot1.getKey());
                         if (dataSnapshot1.getKey().equals(firebaseUser.getUid())) {
                             mutableLiveData.setValue("Successful");
                         } else {
