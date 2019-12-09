@@ -19,4 +19,11 @@
     <string name="title_activity_safe_area_map">Map</string>
     <string name="set_safe_area">Set Safe Area</string>
     <string name="logout">Logout</string>
+    <string name="success_tag">Successful</string>
+    <string name="failed_tag">Failed</string>
+    <string name="track_your_family_now">Track Your Family Now</string>
+    <string name="parent">parent</string>
+    <string name="login_as_parent">Parent</string>
+    <string name="children">Children</string>
+    <string name="profile">profile</string>
 </resources>

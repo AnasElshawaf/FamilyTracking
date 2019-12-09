@@ -20,7 +20,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <service android:name=".MyFirebaseMessagingService">
+        <service android:name=".services.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -38,22 +38,34 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".ui.SafeAreaMAp"
+            android:name=".ui.SafeArea.SafeAreaView"
             android:label="@string/title_activity_safe_area_map"></activity>
         <activity
-            android:name=".ui.ParentMapActivity"
+            android:name=".ui.ParentMap.ParentMapActivity"
             android:label="@string/title_activity_parent_map" />
-        <activity android:name=".ui.ChildRegisterActivity" />
-        <activity android:name=".ui.ParentChildsActivity" />
-
+        <activity android:name=".ui.ChildRegister.ChildRegisterActivity"
+            android:parentActivityName=".ui.ParentChilds.ParentChildsView">
+        </activity>
+        <activity android:name=".ui.ParentChilds.ParentChildsView"
+            android:parentActivityName=".ui.Main.MainActivity">
+        </activity>
         <receiver android:name=".services.MyLocationService" />
 
         <activity
-            android:name=".ui.ChildMapActivity"
+            android:name=".ui.ChildMap.ChildMapActivity"
             android:label="@string/title_activity_child_map" />
-        <activity android:name=".ui.ParentLoginActivity" />
-        <activity android:name=".ui.ChildLoginActivity" />
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.ParentLogin.ParentLoginView"
+            android:parentActivityName=".ui.Main.MainActivity">
+        </activity>
+        <activity android:name=".ui.ChildLogin.ChildLoginView"
+            android:parentActivityName=".ui.Main.MainActivity">
+        </activity>
+
+        <activity android:name=".ui.ResetPassword.ResetPasswordView">
+
+        </activity>
+
+        <activity android:name=".ui.Main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

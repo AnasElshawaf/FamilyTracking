@@ -1,4 +1,4 @@
-package com.develop.childtracking.ui;
+package com.develop.childtracking.ui.ChildRegister;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.develop.childtracking.Model.SafeArea;
 import com.develop.childtracking.R;
+import com.develop.childtracking.ui.ChildMap.ChildMapActivity;
+import com.develop.childtracking.ui.SafeArea.SafeAreaView;
 import com.develop.childtracking.utils.App_SharedPreferences;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -74,7 +76,7 @@ public class ChildRegisterActivity extends AppCompatActivity {
         btnSetSafeArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivityForResult(new Intent(ChildRegisterActivity.this, SafeAreaMAp.class), 2);
+                startActivityForResult(new Intent(ChildRegisterActivity.this, SafeAreaView.class), 2);
             }
         });
 

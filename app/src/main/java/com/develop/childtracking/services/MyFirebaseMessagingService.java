@@ -1,4 +1,4 @@
-package com.develop.childtracking;
+package com.develop.childtracking.services;
 
 import android.annotation.SuppressLint;
 import android.app.Notification;
@@ -15,7 +15,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
-import com.develop.childtracking.ui.MainActivity;
+import com.develop.childtracking.R;
+import com.develop.childtracking.ui.Main.MainActivity;
 import com.develop.childtracking.utils.App_SharedPreferences;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;

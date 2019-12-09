@@ -1,4 +1,4 @@
-package com.develop.childtracking.ui;
+package com.develop.childtracking.ui.SafeArea;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,7 +19,7 @@ import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class SafeAreaMAp extends FragmentActivity implements OnMapReadyCallback {
+public class SafeAreaView extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private LatLng pickUpLocation;
@@ -47,9 +47,9 @@ public class SafeAreaMAp extends FragmentActivity implements OnMapReadyCallback 
         btSetArea.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent();
-                intent.putExtra("SAFE_AREA",new SafeArea(pickUpLocation.latitude,pickUpLocation.longitude,safeRadius));
-                setResult(2,intent);
+                Intent intent = new Intent();
+                intent.putExtra("SAFE_AREA", new SafeArea(pickUpLocation.latitude, pickUpLocation.longitude, safeRadius));
+                setResult(2, intent);
                 finish();
             }
         });
@@ -79,13 +79,14 @@ public class SafeAreaMAp extends FragmentActivity implements OnMapReadyCallback 
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+        //default location in mansoura
         mMap.addMarker(new MarkerOptions().position(pickUpLocation).title("Marker in Mansoura"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(pickUpLocation));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
-        moveMarkerOnMap(mMap);
+        pickUpLocation(mMap);
     }
 
-    private void moveMarkerOnMap(final GoogleMap mMap) {
+    private void pickUpLocation(final GoogleMap mMap) {
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {

@@ -7,8 +7,8 @@ import android.location.Location;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.develop.childtracking.ui.ChildMapActivity;
-import com.develop.childtracking.ui.ParentMapActivity;
+import com.develop.childtracking.ui.ChildMap.ChildMapActivity;
+import com.develop.childtracking.ui.ParentMap.ParentMapActivity;
 import com.google.android.gms.location.LocationResult;
 
 public class MyLocationService extends BroadcastReceiver {

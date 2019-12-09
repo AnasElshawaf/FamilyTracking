@@ -1,4 +1,4 @@
-package com.develop.childtracking;
+package com.develop.childtracking.utils;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -15,7 +15,7 @@ public class FcmNotifier {
 
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
-    public static void sendNotification(final String body, final String title,final String key) {
+    public static void sendNotification(final String body, final String title, final String key) {
         new AsyncTask<Void, Void, Void>() {
             @Override
             protected Void doInBackground(Void... params) {
