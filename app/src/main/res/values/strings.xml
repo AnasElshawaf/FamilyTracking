@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">ChildTracking</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="forget_your_password">Forget your password?</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="e_mail">E_mail</string>
+    <string name="your_email">Your Email</string>
+    <string name="reset">Reset</string>
+    <string name="you_will_recive_an_email_to_reset_password">You will receive an email to by click reset password</string>
+    <string name="title_activity_child_login">ChildLoginActivity</string>
+    <string name="register">Register</string>
+    <string name="title_activity_child_map">Map</string>
+    <string name="name">User name</string>
+    <string name="you_have_no_childs_yet">You have no childs yet</string>
+    <string name="add_child">Add Child</string>
+    <string name="title_activity_parent_map">Map</string>
+    <string name="title_activity_safe_area_map">Map</string>
+    <string name="set_safe_area">Set Safe Area</string>
+    <string name="logout">Logout</string>
+</resources>
