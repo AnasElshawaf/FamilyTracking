@@ -32,7 +32,7 @@ public class ParentChildsViewModel extends ViewModel {
                 childList.clear();
                 for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
                     Child child = dataSnapshot1.getValue(Child.class);
-                    if (child != null) {
+                    if (child != null || firebaseUser!=null) {
 
                         if (child.getParentId().equals(firebaseUser.getUid())) {
                             childList.add(child);

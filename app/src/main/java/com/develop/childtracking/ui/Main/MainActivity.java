@@ -1,13 +1,15 @@
 package com.develop.childtracking.ui.Main;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -22,6 +24,7 @@ import com.develop.childtracking.ui.ChildLogin.ChildLoginView;
 import com.develop.childtracking.ui.ChildMap.ChildMapActivity;
 import com.develop.childtracking.ui.ParentChilds.ParentChildsView;
 import com.develop.childtracking.ui.ParentLogin.ParentLoginView;
+import com.develop.childtracking.utils.App_SharedPreferences;
 import com.develop.childtracking.utils.SimpleMultiplePermissionListener;
 import com.develop.childtracking.utils.SimplePermissionListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
     SimpleMultiplePermissionListener simpleMultiplePermissionListener;
     SimplePermissionListener simplePermissionListener;
     private boolean permissionStatus;
+    private Boolean gpsStatus;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,12 +67,17 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (permissionStatus) {
-                    if (userType.equals("child")) {
-                        startActivity(new Intent(MainActivity.this, ChildMapActivity.class));
-                        finish();
+                    if (checkGPSStatus(MainActivity.this)) {
+                        if (userType.equals("child")) {
+                            startActivity(new Intent(MainActivity.this, ChildMapActivity.class));
+                            finish();
+                        } else {
+                            startActivity(new Intent(MainActivity.this, ChildLoginView.class));
+                        }
                     } else {
-                        startActivity(new Intent(MainActivity.this, ChildLoginView.class));
+                        buildAlertMessageNoGps();
                     }
+
                 } else {
                     requestAllPermissions();
                 }
@@ -78,10 +88,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (permissionStatus) {
-                    if (userType.equals("parent")) {
-                        startActivity(new Intent(MainActivity.this, ParentChildsView.class));
+                    if (checkGPSStatus(MainActivity.this)) {
+                        if (userType.equals("parent")) {
+                            startActivity(new Intent(MainActivity.this, ParentChildsView.class));
+                        } else {
+                            startActivity(new Intent(MainActivity.this, ParentLoginView.class));
+                        }
                     } else {
-                        startActivity(new Intent(MainActivity.this, ParentLoginView.class));
+                        buildAlertMessageNoGps();
                     }
                 } else {
                     requestAllPermissions();
@@ -121,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void requestAllPermissions() {
         Dexter.withActivity(this).withPermissions
-                (Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                (Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 .withListener(simpleMultiplePermissionListener).check();
 
     }
@@ -201,5 +215,30 @@ public class MainActivity extends AppCompatActivity {
         Uri uri = Uri.fromParts("package", getPackageName(), null);
         intent.setData(uri);
         startActivity(intent);
+    }
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
+                .setCancelable(false)
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    //Check GPS Status true/false
+    public static boolean checkGPSStatus(Context context) {
+        LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+        boolean statusOfGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        return (statusOfGPS);
     }
 }
